@@ -1,9 +1,10 @@
-import { QueryComponents } from 'components/movieList';
-import NavigationButton from 'components/navigationButton';
-import { useInfiniteScrollQuery } from 'custom/useInfiniteScrollQuery';
-import { useIntersectionObserver } from 'custom/useIntersectionObserver';
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+
+import { MovieList } from '../components/movieList';
+import NavigationButton from '../components/navigationButton';
+import { useInfiniteScrollQuery } from '../custom/useInfiniteScrollQuery';
+import { useIntersectionObserver } from '../custom/useIntersectionObserver';
 
 // MainPage 하나로 다른 페이지를 다 불러옴
 const MainPage = ({ queryKey = [], dataApi }) => {
@@ -32,7 +33,7 @@ const MainPage = ({ queryKey = [], dataApi }) => {
             <Styled.Wrapper>
                 <NavigationButton />
 
-                <QueryComponents
+                <MovieList
                     data={data}
                     fetchNextPage={fetchNextPage}
                     hasNextPage={hasNextPage}

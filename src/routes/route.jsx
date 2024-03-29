@@ -1,15 +1,16 @@
+import { createBrowserRouter } from 'react-router-dom';
+
 import {
     nowPlayingApi,
     popularApi,
     searchApi,
     topRatedApi,
     upcomingApi,
-} from 'apis/apiConfig';
-import RootLayout from 'layouts/layout';
-import MainPage from 'pages/mainPage';
-import MovieDetailPage from 'pages/movieDetail';
-import SearchPage from 'pages/searchPage';
-import { createBrowserRouter } from 'react-router-dom';
+} from '../apis/apiConfig';
+import RootLayout from '../layouts/layout';
+import MainPage from '../pages/mainPage';
+import MovieDetailPage from '../pages/movieDetail';
+import SearchPage from '../pages/searchPage';
 
 const router = createBrowserRouter([
     {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                path: '/movie/:movie_id',
+                path: '/movie',
                 element: <MovieDetailPage />,
             },
             {

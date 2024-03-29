@@ -1,9 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import { movieDetailApi } from 'apis/apiConfig';
-import StyledBtn from 'components/button';
-import MovieVideo from 'components/movie-detail/MovieVideo';
+import SkeletonMovieDetail from 'components/skeleton/skeleton-detail';
+import React from 'react';
+import { Suspense, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { movieDetailApi } from '../apis/apiConfig';
+import StyledBtn from '../components/button';
+
+const MovieVideo = React.lazy(
+    () => import('components/movie-detail/MovieVideo'),
+);
 
 const MovieDetailPage = () => {
     const [params] = useSearchParams();
@@ -14,21 +21,31 @@ const MovieDetailPage = () => {
         queryFn: () => movieDetailApi(movieId),
     });
 
-    if (isPending) return <div>Loading...</div>;
-    if (isError) return <div>Error: {error.message}</div>;
-    console.log(data);
+    useEffect(() => {
+        const preloadLink = document.createElement('link');
+        preloadLink.href = `https://image.tmdb.org/t/p/w300${data?.poster_path}`;
+        preloadLink.rel = 'preload';
+        preloadLink.as = 'image';
+        document.head.appendChild(preloadLink);
 
-    // 제목 포스터 별점 제작 연도 장르
+        return () => {
+            if (preloadLink) {
+                document.head.removeChild(preloadLink);
+            }
+        };
+    }, [data]);
+
+    if (isPending) return <SkeletonMovieDetail />;
+    if (isError) return <div>Error: {error.message}</div>;
 
     return (
         <>
-            <Styled.Wrapper
-                backgroundImage={`https://image.tmdb.org/t/p/w500${data.backdrop_path}`}
-            >
+            <Styled.Wrapper>
                 <Styled.Container>
                     <Styled.ImgBox>
                         <Img
-                            src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
+                            alt="image"
+                            src={`https://image.tmdb.org/t/p/w300${data.poster_path}`}
                         />
                     </Styled.ImgBox>
                     <Styled.TextBox>
@@ -38,11 +55,10 @@ const MovieDetailPage = () => {
                         <p>개봉일 : {data.release_date}</p>
                         <p>
                             장르 :{' '}
-                            {data.genres.map(item => (
-                                <span> {item.name}</span>
+                            {data.genres.map((item, index) => (
+                                <span key={index}> {item.name}</span>
                             ))}
                         </p>
-                        {/* <p>개봉일 : {data.release_date}</p> */}
                         <p>평점 : {parseFloat(data.vote_average).toFixed(1)}</p>
                     </Styled.TextBox>
                 </Styled.Container>
@@ -63,7 +79,9 @@ const MovieDetailPage = () => {
                 </Styled.TextContent>
                 <h1>영상</h1>
                 <Styled.MovieBox>
-                    <MovieVideo />
+                    <Suspense fallback={<div>Loading video</div>}>
+                        <MovieVideo />
+                    </Suspense>
                 </Styled.MovieBox>
             </Styled.Wrapper>
         </>
@@ -74,10 +92,6 @@ export default MovieDetailPage;
 const Wrapper = styled.div`
     width: 100%;
     height: 100%;
-    /* position: absolute; */
-    /* background-image: url(${props => props.backgroundImage});
-    background-size: cover; */
-    margin-top: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -85,11 +99,14 @@ const Wrapper = styled.div`
 `;
 
 const Img = styled.img`
-    width: 250px;
+    width: 200px;
+    height: 300px;
+    aspect-ratio: 200/300; // 비율
 `;
 
 const Container = styled.div`
     width: 70%;
+    padding-top: 90px;
     display: flex;
     justify-content: space-evenly;
 `;
@@ -101,11 +118,11 @@ const TextBox = styled.div`
 `;
 
 const MovieBox = styled.div`
-    margin-top: 30px;
+    padding-top: 30px;
     width: 50%;
-    display: grid;
+    display: flex;
     justify-content: center;
-    grid-template-rows: 1fr 1fr;
+    flex-direction: column;
 `;
 
 const TextContent = styled.div`
@@ -121,7 +138,7 @@ const TextMenuBox = styled.div`
 `;
 
 const TextMenuItem = styled.p`
-    margin-left: 70px;
+    padding-left: 70px;
 `;
 
 const Styled = {

@@ -1,7 +1,8 @@
-import LogoImg from 'assets/imgs/show.png';
-import SearchBar from 'components/searchBar';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
+import LogoImg from '../assets/imgs/show.png';
+import SearchBar from '../components/searchBar';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Header = () => {
         <>
             <Styled.TitleWrapper>
                 <Styled.ImgWrapper>
-                    <Styled.Img src={LogoImg} />
+                    <Styled.Img alt="logo_image" src={LogoImg} />
                 </Styled.ImgWrapper>
                 <Styled.H1 onClick={() => handleMainPage()}>
                     OMEGA3BOX
@@ -48,6 +49,8 @@ const ImgWrapper = styled.div`
 `;
 const Img = styled.img`
     width: 100px;
+    height: 50px;
+    aspect-ratio: 100/50;
     margin-top: 15px;
 `;
 

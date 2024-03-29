@@ -15,14 +15,14 @@ const ButtonComponent = ({
     return (
         <Button
             onClick={onClick}
-            backgroundColor={backgroundColor}
+            $backgroundColor={backgroundColor}
             color={color}
-            width={width}
-            height={height}
-            margin={margin}
-            border={border}
-            boxShadow={boxShadow}
-            borderRadius={borderRadius}
+            $width={width}
+            $height={height}
+            $margin={margin}
+            $border={border}
+            $boxShadow={boxShadow}
+            $borderRadius={borderRadius}
         >
             {children}
         </Button>
@@ -32,14 +32,14 @@ export default ButtonComponent;
 
 const Button = styled.button`
     font-size: 13pt;
-    background-color: ${props => props.backgroundColor || 'none'};
+    background-color: ${props => props.$backgroundColor || 'none'};
     color: ${props => props.color || 'inherit'};
-    width: ${props => props.width || '150px'};
-    height: ${props => props.height || '50px'};
-    margin: ${props => props.margin || '5px'};
-    border: ${props => props.border || 'none'};
-    box-shadow: ${props => props.boxShadow || '1px 1px 1px 1px #000'};
-    border-radius: ${props => props.borderRadius || '8px'};
+    width: ${props => props.$width || '150px'};
+    height: ${props => props.$height || '50px'};
+    margin: ${props => props.$margin || '5px'};
+    border: ${props => props.$border || 'none'};
+    box-shadow: ${props => props.$boxShadow || '1px 1px 1px 1px #000'};
+    border-radius: ${props => props.$borderRadius || '8px'};
     &:hover {
         cursor: pointer;
         background-color: #000;

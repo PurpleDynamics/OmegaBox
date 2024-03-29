@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const { default: SkeletonBase } = require('./skeleton-base');
+import SkeletonBase from './skeleton-base';
+
+
 
 const SkeletonMovieList = () => {
     return (

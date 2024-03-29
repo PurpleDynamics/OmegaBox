@@ -1,9 +1,10 @@
-import { upcomingApi } from 'apis/apiConfig';
-import { QueryComponents } from 'components/movieList';
-import NavigationButton from 'components/navigationButton';
-import { useInfiniteScrollQuery } from 'custom/useInfiniteScrollQuery';
 import React from 'react';
 import styled from 'styled-components';
+
+import { upcomingApi } from '../apis/apiConfig';
+import { MovieList } from '../components/movieList';
+import NavigationButton from '../components/navigationButton';
+import { useInfiniteScrollQuery } from '../custom/useInfiniteScrollQuery';
 
 const UpcomingPage = () => {
     const {
@@ -26,7 +27,7 @@ const UpcomingPage = () => {
         <>
             <Styled.Wrapper>
                 <NavigationButton />
-                <QueryComponents
+                <MovieList
                     data={data}
                     fetchNextPage={fetchNextPage}
                     hasNextPage={hasNextPage}

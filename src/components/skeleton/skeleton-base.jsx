@@ -1,5 +1,6 @@
-import { colors } from 'constants/design-token/color';
 import styled, { keyframes } from 'styled-components';
+
+import { colors } from '../../constants/design-token/color';
 
 const SkeletonBase = ({ width, height, borderRadius }) => {
     return (

@@ -1,29 +1,39 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const { default: SkeletonBase } = require('./skeleton-base');
+import SkeletonBase from './skeleton-base';
 
 const SkeletonVideo = () => {
     return (
         <React.Fragment>
-            <Container>
-                <SkeletonBase
-                    width={'400px'}
-                    height={'250px'}
-                    borderRadius={'4px'}
-                />
-            </Container>
+            <Styled.Wrapper>
+                {Array.from({ length: 5 }).map((_, index) => (
+                    <Styled.VideoBox key={index}>
+                        <SkeletonBase width={'400px'} height={'250px'} />
+                    </Styled.VideoBox>
+                ))}
+            </Styled.Wrapper>
         </React.Fragment>
     );
 };
 
 export default SkeletonVideo;
-const Container = styled.div`
+const Wrapper = styled.div`
     width: 100%;
-    height: 100%;
-    margin-top: 200px;
+    height: 2000px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 `;
+
+const VideoBox = styled.div`
+    width: 400px;
+    height: 250px;
+    aspect-ratio: 400/250;
+`;
+
+const Styled = {
+    Wrapper,
+    VideoBox,
+};
