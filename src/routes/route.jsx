@@ -1,3 +1,5 @@
+import ErrorFallBack from 'components/errorFallBack';
+import { ErrorBoundary } from 'react-error-boundary';
 import { createBrowserRouter } from 'react-router-dom';
 
 import {
@@ -20,7 +22,14 @@ const router = createBrowserRouter([
             {
                 path: '',
                 element: (
-                    <MainPage queryKey={['popularData']} dataApi={popularApi} />
+                    <div style={{ paddingTop: '100px' }}>
+                        <ErrorBoundary FallbackComponent={ErrorFallBack}>
+                            <MainPage
+                                queryKey={['popularData']}
+                                dataApi={popularApi}
+                            />
+                        </ErrorBoundary>
+                    </div>
                 ),
             },
             {

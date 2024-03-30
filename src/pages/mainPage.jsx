@@ -48,7 +48,7 @@ const MainPage = ({ queryKey = [], dataApi }) => {
 export default MainPage;
 
 const Wrapper = styled.div`
-    width: calc(100vw - 50px);
+    width: calc(100vw - 100px);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     padding-left: 50px;
