@@ -22,6 +22,10 @@ const MainPage = ({ queryKey = [], dataApi }) => {
 
     const lastMovieRef = useRef(null);
 
+    // useEffect(() => {
+    //     throw new Error('test error');
+    // }, []);
+
     useIntersectionObserver({
         target: lastMovieRef, // intersectionObserver가 관찰할 DOM요소 지정
         onIntersect: fetchNextPage, // target요소가 viewport에 들어올 때 실행될 함수
